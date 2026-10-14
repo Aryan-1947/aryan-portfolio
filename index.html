@@ -50,14 +50,14 @@ a{color:var(--hl)}
 .desk::before{content:"";position:absolute;inset:-20%;z-index:-1;pointer-events:none;background:radial-gradient(600px 420px at 28% 30%,var(--glow1),transparent 60%),radial-gradient(520px 420px at 76% 72%,var(--glow2),transparent 60%);animation:drift 26s ease-in-out infinite alternate}
 @keyframes deskin{from{opacity:0;transform:scale(1.02)}to{opacity:1;transform:none}}
 @keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(6%,4%) scale(1.15)}}
-.dicons{display:flex;flex-direction:column;gap:14px}
+.dicons{display:flex;flex-direction:column;flex-wrap:wrap;align-content:flex-start;gap:14px 8px;max-height:100%}
 .dic{width:92px;display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px 6px;border:1px solid transparent;border-radius:10px;background:none;color:var(--fg);font:12px var(--mono);text-decoration:none;text-align:center;cursor:pointer}
 .dic svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .dic:hover,.dic:focus-visible{background:color-mix(in srgb,var(--hl) 14%,transparent);border-color:color-mix(in srgb,var(--hl) 40%,transparent)}
 .dclock{text-align:right;user-select:none}
 #dtime{font:300 clamp(44px,7vw,84px)/1 var(--mono);letter-spacing:-.03em;color:var(--w)}
 #ddate{margin-top:8px;font-size:14px;color:var(--dim)}
-@media (max-width:640px){.desk{flex-direction:column-reverse;justify-content:flex-end;gap:26px;padding:calc(28px + env(safe-area-inset-top,0px)) 20px 90px}.dclock{text-align:left}.dicons{flex-direction:row;flex-wrap:wrap;gap:6px}}
+@media (max-width:640px){.desk{flex-direction:column-reverse;justify-content:flex-end;gap:26px;padding:calc(28px + env(safe-area-inset-top,0px)) 20px 90px}.dclock{text-align:left}.dicons{flex-direction:row;flex-wrap:wrap;gap:6px;max-height:none}}
 @media (prefers-reduced-motion:reduce){.desk,.desk::before{animation:none}}
 .ttl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}.bar{min-width:0}
 @supports (height:100dvh){html,body{height:100dvh}}
@@ -83,6 +83,8 @@ svg.lgsvg{display:block;width:min(100%,387px);height:auto;margin:8px 0;max-width
   <div class="dicons">
     <button class="dic" type="button" data-c="about"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>About Me</span></button>
     <button class="dic" type="button" data-c="projects"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg><span>Projects</span></button>
+    <button class="dic" type="button" id="dres"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg><span>Resume</span></button>
+    <button class="dic" type="button" data-c="contact"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span>Contact</span></button>
     <a class="dic" href="https://github.com/Aryan-1947" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg><span>GitHub</span></a>
     <a class="dic" href="https://www.linkedin.com/in/aryanshekhawat07/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg><span>LinkedIn</span></a>
   </div>
@@ -160,12 +162,12 @@ const CMDS={
   `  ${C('contact')}        get in touch`,`  ${C('neofetch')}       quick summary`,`  ${C('resume')}         open my resume (PDF)`,`  ${C('tour')}           guided tour`,`  ${C('open')} ${D('&lt;project&gt;')}  open a project's live demo`,`  ${C('clear')}          clear the screen`,'',D('tip: ↑ ↓ history · tab autocomplete · every highlighted word is clickable')]},
  about(){const W=t=>'<span class="wr">'+esc(t)+'</span>',Bl=t=>'<span class="wr bl">• '+esc(t)+'</span>';
   return [D('$ cat about.md'),'',
-  W(`I didn’t fall into AI through the usual door — leaderboards, bigger-is-better benchmarks. I fell into it somewhere messier: realizing the hard part was never getting something to work once. It was getting it to still work when no one was watching, when the input was weird, when the easy path quietly broke.`),'',
+  W(`I didn’t fall into AI through leaderboards or bigger-is-better benchmarks. I fell into it realizing the hard part was never getting something to work once — it was getting it to still work when no one was watching, when the input was weird, when the easy path quietly broke.`),'',
   W(`That search led me to what holds my attention now — systems that don’t just predict, but reason, retrieve, and act. That’s where my focus lives: Agentic AI, LLMs, retrieval-augmented systems.`),'',
   W(`What I care about inside that space is narrower than it sounds:`),
   Bl(`Reasoning that holds up when the case isn’t clean`),Bl(`Retrieval precise enough to actually trust`),Bl(`Systems that survive contact with reality, not just the demo`),'',
-  W(`I’m not comfortable stopping at “it runs.” I pull problems apart from first principles and rebuild them until I actually understand them — not until they pass. I’d rather spend my time on the edge case nobody accounted for than the demo everyone claps for.`),'',
-  W(`That’s the kind of engineer I’m trying to be — one whose work holds up long after the interesting part is over.`),'',
+  W(`I don’t like leaving a black box unopened. If I can’t explain why something works, I keep digging until I can — even if the deadline would let me stop sooner.`),'',
+  W(`That’s the engineer I’m trying to be: one who doesn’t just ship the answer, but understands it.`),'',
   D('status     ')+' <span class="ok">● open to internships and opportunities</span>',...next(C('projects'),C('experience'),C('contact'))]},
  education(){return [D('$ cat education.txt'),'',H('B.Tech, Artificial Intelligence and Data Science')+'  '+D('2023 - present'),'  Dr. Akhilesh Das Gupta Institute of Professional Studies','  Guru Gobind Singh Indraprastha University, New Delhi','  CGPA <span class="ok w">9.0</span>','',
   H('Senior Secondary')+' (CBSE)  '+D('2023')+'   81.25%',H('Secondary')+' (CBSE)         '+D('2021')+'   90%',...next(C('experience'),C('projects'))]},
@@ -281,6 +283,7 @@ $('#min').onclick=()=>{WIN.classList.add('gone');DOCK.hidden=false;DESK.hidden=f
 const restore=()=>{WIN.classList.remove('gone');DOCK.hidden=true;DESK.hidden=true;cmd.focus()};
 DOCK.onclick=restore;
 DESK.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{restore();if(!busy)run(b.dataset.c)});
+$('#dres').onclick=()=>{try{const w=window.open(resumeURL(),'_blank');if(!w)saveResume()}catch(e){saveResume()}};
 $('#cls').onclick=()=>{WIN.classList.add('gone');OFF.hidden=false;$('#reopen').focus()};
 $('#reopen').onclick=()=>{OFF.hidden=true;WIN.classList.remove('gone');cmd.value='';try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}banner(true)};
 TG.onclick=()=>{const d=document.documentElement;d.dataset.theme=d.dataset.theme==='light'?'dark':'light';try{localStorage.setItem('t',d.dataset.theme)}catch(e){}paint()};
