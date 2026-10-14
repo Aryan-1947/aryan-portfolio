@@ -3,10 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Aryan Shekhawat · terminal portfolio</title>
+<title>Aryan Shekhawat · Terminal Portfolio</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%230C0E12'/%3E%3Cpath%20d='M16%2022l14%2010-14%2010'%20fill='none'%20stroke='%234AA3FF'%20stroke-width='6'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3Cpath%20d='M36%2044h16'%20stroke='%23FFFFFF'%20stroke-width='6'%20stroke-linecap='round'/%3E%3C/svg%3E">
 <meta name="description" content="AI/ML Engineer building Agentic AI, RAG pipelines, and systems that reason over raw prediction. Explore my projects, research and experience in an interactive terminal.">
-<!-- Link preview card: after deploying, put og-image.png next to this file and replace YOUR-DOMAIN with your real address. To drop the preview card, delete these 6 lines. -->
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://aryan07-portfolio.vercel.app/">
 <meta property="og:title" content="Aryan Shekhawat · AI/ML Engineer">
 <meta property="og:description" content="Building Agentic AI, RAG pipelines, and systems that reason over raw prediction. Type 'help' to explore.">
 <meta property="og:image" content="https://aryan07-portfolio.vercel.app/og-image.png">
@@ -52,7 +53,8 @@ svg.lgsvg{display:block;width:min(100%,387px);height:auto;margin:8px 0;max-width
 .lgsvg rect{fill:var(--logo);stroke:var(--win);stroke-width:.7}.lgsvg path{fill:none;stroke:var(--logo);stroke-width:1.1}
 .nfw{display:flex;align-items:center;gap:22px;flex-wrap:wrap}.nfw .lgsvg{width:min(100%,300px);margin:0}.nfi{white-space:pre}
 .ln{white-space:pre}
-@media (max-width:640px){.ln{white-space:pre-wrap}#cmd{font-size:16px}.ctl{gap:14px;flex-shrink:0}.dock{max-width:calc(100% - 24px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}body{padding:0}.win{border-radius:0;border:0;width:100%}.main{padding:12px 14px;font-size:11.5px}</style>
+@media (max-width:640px){.ln{white-space:pre-wrap}#cmd{font-size:16px}.ctl{gap:14px;flex-shrink:0}.dock{max-width:calc(100% - 24px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}body{padding:0}.win{border-radius:0;border:0;width:100%}.main{padding:12px 14px;font-size:11.5px}}
+</style>
 </head>
 <body>
 <div class="win">
@@ -228,7 +230,7 @@ async function banner(force){
   const l=['<span class="dim">Microsoft Windows [Version 10.0.22631.4460]</span>','<span class="dim">(c) Microsoft Corporation. All rights reserved.</span>','',LOGOHTML,'',
    '<span class="w">AI/ML Engineer · Building Agentic AI, RAG pipelines, and Systems that reason over raw prediction.</span>','','<span class="dim">'+(seen?'Welcome back.':'Welcome.')+' This is not a real terminal, but it behaves like one.</span>',
    `<span class="dim">Type</span> ${C('about')} <span class="dim">to begin, or</span> ${C('help')} <span class="dim">for all commands, or</span> ${C('tour')} <span class="dim">for a guided tour.</span>`,''];
-  await emit(l,true);const h=location.hash.slice(1);if(h)try{run(decodeURIComponent(h))}catch(e){}}
+  await emit(l,true);const h=location.hash.slice(1);if(h&&!force)try{run(decodeURIComponent(h))}catch(e){}}
 
 cmd.addEventListener('keydown',e=>{
   if(e.key==='Enter'){if(busy){e.preventDefault();return}const v=cmd.value;cmd.value='';run(v)}
@@ -254,7 +256,7 @@ const WIN=$('.win'),DOCK=$('#dock'),OFF=$('#off');
 $('#min').onclick=()=>{WIN.classList.add('gone');DOCK.hidden=false;DOCK.focus()};
 DOCK.onclick=()=>{WIN.classList.remove('gone');DOCK.hidden=true;cmd.focus()};
 $('#cls').onclick=()=>{WIN.classList.add('gone');OFF.hidden=false;$('#reopen').focus()};
-$('#reopen').onclick=()=>{OFF.hidden=true;WIN.classList.remove('gone');cmd.value='';banner(true)};
+$('#reopen').onclick=()=>{OFF.hidden=true;WIN.classList.remove('gone');cmd.value='';try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}banner(true)};
 TG.onclick=()=>{const d=document.documentElement;d.dataset.theme=d.dataset.theme==='light'?'dark':'light';try{localStorage.setItem('t',d.dataset.theme)}catch(e){}paint()};
 try{const st=localStorage.getItem('t');if(st)document.documentElement.dataset.theme=st}catch(e){}
 paint();
