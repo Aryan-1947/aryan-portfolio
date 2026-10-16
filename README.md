@@ -13,7 +13,7 @@ An interactive portfolio that behaves like a command prompt. Visitors type comma
 | `about` | Who I am and what I care about |
 | `projects` / `projects 1` | Things I've built, with details and links |
 | `open <project>` | Opens a project's live demo (e.g. `open codeatlas`) |
-| `experience` | DRDO traineeship and AI/ML internship |
+| `experience` | DRDO AI/ML internship |
 | `research` | Papers and ongoing work |
 | `skills` | Languages, frameworks, tools |
 | `education`, `achievements`, `certifications` | Grades, hackathons, courses |
@@ -36,7 +36,8 @@ Shortcuts: `Tab` autocompletes, `↑ ↓` recalls history, `Ctrl+L` clears. The 
 aryan-portfolio/
 ├── index.html     # the whole site
 ├── og-image.png   # link preview card used when the URL is shared
-└── README.md
+├── README.md
+└── resume.pdf     # served by the `resume` command
 ```
 
 ## Run locally
@@ -46,6 +47,8 @@ Open `index.html` in a browser. That's it.
 ## Customize
 
 Content lives near the top of the script in `index.html`: contact links in `ME`, projects in `PROJ`, and each command's text in `CMDS`.
+
+To update the résumé, replace `resume.pdf` with the new file (keep the exact name) and bump the version in `resumeURL` (for example `resume.pdf?v=2`) so browsers don't show a cached copy.
 
 ## Contact
 
