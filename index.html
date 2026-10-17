@@ -153,7 +153,7 @@ const D=t=>'<span class="dim">'+t+'</span>';
 const H=t=>'<span class="w">'+t+'</span>';
 
 const TOUR={on:false,i:-1,steps:['about','projects','experience','research','contact']};
-const resumeURL=()=>'resume.pdf?v=1';
+const resumeURL=()=>'resume.pdf?v=2';
 const SANDBOX=()=>typeof window.claude!=='undefined'||location.origin==='null';
 async function saveResume(){try{const a=document.createElement('a');a.href=resumeURL();a.download='Aryan_Shekhawat_Resume.pdf';document.body.appendChild(a);a.click();a.remove();return ['Download started.']}catch(e){return ['<span class="err">Could not start the download.</span>']}}
 const CMDS={
