@@ -20,15 +20,28 @@ An interactive portfolio that behaves like a command prompt. Visitors type comma
 | `resume` | Opens my résumé (PDF) |
 | `tour` | A guided walkthrough, press Enter for each stop |
 | `neofetch`, `contact`, `help`, `clear` | Quick summary, links, command list |
+| `milli` | About my little assistant (`milli sleep`, `wake`, `mute`, `unmute`, `hide`, `show`) |
+| `intro` | Replays Milli's introduction |
 
-Shortcuts: `Tab` autocompletes, `↑ ↓` recalls history, `Ctrl+L` clears. The sun/moon button switches light and dark mode.
+Shortcuts: `Tab` autocompletes, `↑ ↓` recalls history, `Ctrl+L` clears, `Esc` skips Milli's intro. The sun/moon button switches light and dark mode.
+
+## Meet Milli
+
+Milli is a small assistant who lives in the corner of the page.
+
+- She introduces herself when you arrive, over a blurred glass background, then walks to her corner. Click anywhere or press `Esc` to skip.
+- Click or tap her to boop her. Tickle her leaf for a different reaction.
+- She offers help with clickable `help` and `intro` buttons.
+- If you stop exploring, she suggests commands you haven't opened yet.
+- If you leave her alone for a minute she falls asleep, and you have to boop her to wake her up.
+- She has no LLM and no API. Every line is pre-written, and a small state machine decides when to say it.
 
 ## How it's built
 
 - A single static `index.html` with plain HTML, CSS and JavaScript. No framework, no build step, no backend, no API keys.
 - Live weather in the status bar comes from the free [Open-Meteo](https://open-meteo.com) API.
 - Hosted on Vercel and redeployed automatically on every push to `main`.
-- The browser remembers two things locally (`localStorage`): whether you've visited before and your light/dark choice. Nothing is sent to a server.
+- The browser remembers a few things locally (`localStorage`): whether you've visited before, your light/dark choice, and whether you muted or hid Milli. Nothing is sent to a server.
 
 ## Project structure
 
@@ -49,6 +62,8 @@ Open `index.html` in a browser. That's it.
 Content lives near the top of the script in `index.html`: contact links in `ME`, projects in `PROJ`, and each command's text in `CMDS`.
 
 To update the résumé, replace `resume.pdf` with the new file (keep the exact name) and bump the version in `resumeURL` (for example `resume.pdf?v=2`) so browsers don't show a cached copy.
+
+Milli's lines live in the `Ls` object inside the `Milli` block of the script, and the commands she nudges visitors toward are in the `ORDER` list.
 
 ## Contact
 

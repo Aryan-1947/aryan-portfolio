@@ -27,6 +27,7 @@ body{background:radial-gradient(900px 520px at 12% -4%,var(--glow1),transparent 
 .bar{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--line);color:var(--dim);font-size:13px}
 .ctl{margin-left:auto;display:flex;align-items:center;gap:26px}
 .main{flex:1;overflow:auto;padding:22px 26px}
+.main{scrollbar-width:none;-ms-overflow-style:none}.main::-webkit-scrollbar{display:none}
 .sb{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;border-top:1px solid var(--line);font-size:13px;color:var(--dim)}
 .sb .wx,.sb .clk{display:flex;align-items:center;gap:10px}
 .ib{background:none;border:0;color:var(--dim);cursor:pointer;padding:3px;display:inline-flex}.ib:hover{color:var(--w)}
@@ -75,6 +76,109 @@ svg.lgsvg{display:block;width:min(100%,387px);height:auto;margin:8px 0;max-width
 .nfw{display:flex;align-items:center;gap:22px;flex-wrap:wrap}.nfw .lgsvg{width:min(100%,300px);margin:0}.nfi{white-space:pre}
 .ln{white-space:pre}
 @media (max-width:640px){.ln{white-space:pre-wrap}#cmd{font-size:11.5px}.ctl{gap:14px;flex-shrink:0}.dock{max-width:calc(100% - 24px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}body{padding:0}.win{border-radius:0;border:0;width:100%}.main{padding:12px 14px;font-size:11.5px}}
+
+/* ---------- Milli ---------- */
+#milli{--b1:color-mix(in srgb,var(--hl) 42%,#fff);--b2:color-mix(in srgb,var(--hl) 90%,#0a1630);--edge:color-mix(in srgb,var(--hl) 50%,#0a1630);--ink:#0b1424;--cheek:#ff9db5;--mg:color-mix(in srgb,var(--hl) 50%,transparent);position:fixed;right:20px;bottom:calc(88px + env(safe-area-inset-bottom,0px));width:104px;z-index:6;pointer-events:none;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;transition:opacity .6s}
+#milli:not(.on){opacity:0}
+#milli[hidden]{display:none}
+#milli:focus-visible{outline-offset:6px;border-radius:20px}
+#milli .mw{position:relative;transition:transform 1.3s cubic-bezier(.65,0,.25,1)}
+#milli.intro .mw{transform:translate(var(--tx,0px),var(--ty,0px)) scale(var(--sc,1))}
+#milli.nt .mw{transition:none}
+#mveil{position:fixed;inset:0;z-index:5;display:flex;align-items:flex-end;justify-content:center;padding-bottom:calc(26px + env(safe-area-inset-bottom,0px));background:radial-gradient(460px 460px at 50% 40%,color-mix(in srgb,var(--hl) 22%,transparent),transparent 70%),color-mix(in srgb,var(--page) 38%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);opacity:0;visibility:hidden;transition:opacity .6s,visibility 0s .6s;cursor:pointer}
+#mveil.on{opacity:1;visibility:visible;transition:opacity .6s}
+#mveil span{font-size:12px;color:var(--dim)}
+#ms{display:block;width:100%;height:auto;overflow:visible;pointer-events:none;filter:drop-shadow(0 0 8px var(--mg));transition:opacity .6s}
+#ms .mbody{pointer-events:visiblePainted;cursor:pointer;transform-box:view-box;transform-origin:60px 118px;transition:transform .3s}
+#ms .antg{transform-box:view-box;transform-origin:60px 44px;transition:transform .6s}
+#ms .stem{fill:none;stroke:var(--edge);stroke-width:3;stroke-linecap:round}
+#ms .lf{fill:url(#mgl);stroke:var(--edge);stroke-width:1.6;stroke-linejoin:round;transform-box:view-box;transform-origin:60px 34px;transition:transform .5s}
+#ms .bd{fill:url(#mgb);stroke:var(--edge);stroke-width:2.5}
+#ms .shine{fill:#fff;opacity:.5}
+#ms .ft{fill:var(--edge)}
+#ms .arm{fill:url(#mgl);stroke:var(--edge);stroke-width:2;transform-box:fill-box;transform-origin:center;transition:transform .3s}
+#ms .eyes{transform:translate(var(--lx,0px),var(--ly,0px));transition:transform .18s ease-out}
+#ms .eo{fill:var(--ink);transform-box:fill-box;transform-origin:center;transition:transform .1s,opacity .15s}
+#ms .gl{fill:#fff}
+#ms .ec,#ms .es{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;opacity:0;transition:opacity .15s}
+#ms .mth{fill:none;stroke:var(--ink);stroke-width:2.4;stroke-linecap:round}
+#ms .m1,#ms .m2,#ms .m3{transition:opacity .12s}
+#ms .m2,#ms .m3{opacity:0}
+#ms .m2 path,#ms .m3{fill:var(--ink);stroke:none}
+#ms .m3{transform-box:fill-box;transform-origin:center}
+#ms .tg{fill:#ff8aa6}
+#ms .bsh{fill:var(--cheek);opacity:.5;transform-box:fill-box;transform-origin:center;transition:opacity .25s,transform .25s}
+#ms .msp{fill:color-mix(in srgb,var(--hl) 40%,#fff);animation:msp 2.4s ease-in-out infinite}
+#ms .msh{fill:var(--hl);opacity:.14;transform-box:view-box;transform-origin:60px 130px;animation:msh 3.4s ease-in-out infinite alternate}
+#ms .mfl{animation:mfl 3.4s ease-in-out infinite alternate}
+@keyframes mfl{to{transform:translateY(-4px)}}
+@keyframes msh{to{transform:scale(.86);opacity:.09}}
+@keyframes msp{0%,100%{opacity:.2}50%{opacity:1}}
+@keyframes mbp1{0%{transform:none}25%{transform:scale(1.12,.82)}55%{transform:scale(.95,1.08)}100%{transform:none}}
+@keyframes mhop{0%,100%{transform:none}30%{transform:translateY(-14px) scale(.96,1.05)}58%{transform:scale(1.06,.94)}}
+@keyframes mwg{0%,100%{transform:rotate(0)}20%{transform:rotate(-14deg)}45%{transform:rotate(12deg)}70%{transform:rotate(-8deg)}}
+@keyframes mch{0%,100%{transform:none}50%{transform:translateY(-9px) scale(.97,1.05)}}
+@keyframes mshy{0%,100%{transform:translateX(0) rotate(0)}30%{transform:translateX(-2px) rotate(-3deg)}70%{transform:translateX(2px) rotate(3deg)}}
+@keyframes mswy{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+@keyframes mbr{50%{transform:scale(1.025,1.045)}}
+@keyframes mbl{from{transform:scale(1.3)}to{transform:scale(1.12)}}
+@keyframes mt1{0%{opacity:1}50%{opacity:0}}
+@keyframes mt2{0%{opacity:0}50%{opacity:1}}
+#milli.talk:is([data-s=idle],[data-s=curious],[data-s=intro]) .m1{animation:mt1 .4s steps(1,end) infinite}
+#milli.talk:is([data-s=idle],[data-s=curious],[data-s=intro]) .m2{animation:mt2 .4s steps(1,end) infinite}
+#milli.bp .mbody{animation:mbp1 .5s cubic-bezier(.3,1.6,.5,1)}
+#milli.hop .mbody{animation:mhop .6s ease-out}
+#milli.wg .antg{animation:mwg .9s ease-in-out}
+#milli.bk .eo{transform:scaleY(.08)}
+#milli:hover .bsh{opacity:.75}
+#milli[data-s=curious] .mbody{transform:rotate(-6deg)}
+#milli[data-s=intro] .mbody{animation:mswy 2.6s ease-in-out infinite}
+#milli[data-s=intro] .bsh{opacity:.95;animation:mbl 1.2s ease-in-out infinite alternate}
+#milli[data-s=cheer] .mbody{animation:mch .5s ease-in-out infinite}
+#milli[data-s=giggle] .mbody{animation:mshy .45s ease-in-out infinite}
+#milli[data-s=tickle] .mbody{animation:mshy .3s ease-in-out infinite}
+#milli[data-s=tickle] .antg,#milli[data-s=cheer] .antg{animation:mwg .35s ease-in-out infinite}
+#milli[data-s=startled] .eo{transform:scale(1.18)}
+#milli[data-s=startled] .lf{transform:scale(1.18)}
+#milli[data-s=drowsy] .eo{transform:scaleY(.42)}
+#milli[data-s=drowsy] .ll{transform:rotate(-26deg)}
+#milli[data-s=drowsy] .lr{transform:rotate(26deg)}
+#milli[data-s=asleep] .ll{transform:rotate(-46deg)}
+#milli[data-s=asleep] .lr{transform:rotate(46deg)}
+#milli[data-s=asleep] .mbody{animation:mbr 3.6s ease-in-out infinite}
+#milli[data-s=asleep] .mfl{animation-duration:6s}
+#milli[data-s=asleep] #ms{opacity:.82}
+#milli:is([data-s=happy],[data-s=giggle],[data-s=tickle],[data-s=cheer]) .eo,#milli[data-s=asleep] .eo{opacity:0}
+#milli:is([data-s=happy],[data-s=giggle],[data-s=tickle],[data-s=cheer]) .ec{opacity:1}
+#milli[data-s=asleep] .es{opacity:1}
+#milli:is([data-s=happy],[data-s=giggle],[data-s=tickle],[data-s=cheer]) .m1,#milli:is([data-s=startled],[data-s=asleep]) .m1{opacity:0}
+#milli:is([data-s=happy],[data-s=giggle],[data-s=tickle],[data-s=cheer]) .m2,#milli:is([data-s=startled],[data-s=asleep]) .m3{opacity:1}
+#milli[data-s=asleep] .m3{transform:scale(.55)}
+#milli:is([data-s=happy],[data-s=tickle],[data-s=cheer]) .al{transform:translateY(-9px) rotate(-25deg)}
+#milli:is([data-s=happy],[data-s=tickle],[data-s=cheer]) .ar{transform:translateY(-9px) rotate(25deg)}
+#milli:is([data-s=happy],[data-s=tickle],[data-s=cheer]) .bsh{opacity:.9;transform:scale(1.15)}
+#milli[data-s=giggle] .bsh{opacity:.95;transform:scale(1.2)}
+#milli[data-s=asleep] .bsh{opacity:.5}
+.mb{position:absolute;right:4px;bottom:calc(100% - 2px);width:max-content;max-width:min(250px,66vw);padding:8px 12px;border:1px solid color-mix(in srgb,var(--hl) 38%,var(--line));border-radius:12px 12px 3px 12px;background:var(--win);color:var(--fg);font:12.5px/1.5 var(--mono);white-space:normal;box-shadow:0 8px 26px rgba(0,0,0,.32);opacity:0;visibility:hidden;transform:translateY(6px) scale(.96);transform-origin:100% 100%;transition:opacity .18s,transform .18s,visibility 0s .18s}
+.mb.on{opacity:1;visibility:visible;transform:none;transition:opacity .18s,transform .18s}
+.mb.act{pointer-events:auto;cursor:pointer}
+.mb.q{font-size:11px;font-style:italic;color:var(--dim)}
+.mb::after{content:"";position:absolute;right:30px;bottom:-5px;width:8px;height:8px;background:var(--win);border:solid color-mix(in srgb,var(--hl) 38%,var(--line));border-width:0 1px 1px 0;transform:rotate(45deg)}
+.mb .ch{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;visibility:hidden}
+.mb .ch:empty{display:none}
+.mb .ch.on{visibility:visible}
+.mb .ch button{font:inherit;font-size:.92em;color:var(--hl);background:color-mix(in srgb,var(--hl) 10%,transparent);border:1px solid color-mix(in srgb,var(--hl) 45%,transparent);border-radius:999px;padding:3px 11px;cursor:pointer}
+.mb .ch button:hover{background:color-mix(in srgb,var(--hl) 22%,transparent);color:var(--w)}
+#milli.intro .mb{position:fixed;left:50%;right:auto;top:var(--bt,60%);bottom:auto;max-width:min(440px,88vw);padding:12px 18px;border-radius:16px;font-size:16px;text-align:center;transform:translate(-50%,6px) scale(.96);transform-origin:50% 0}
+#milli.intro .mb.on{transform:translate(-50%,0)}
+#milli.intro .mb::after{right:auto;left:calc(50% - 4px);bottom:auto;top:-5px;border-width:1px 0 0 1px}
+#milli.intro .mb .ch{justify-content:center}
+.mfx{position:absolute;inset:0;pointer-events:none}
+.fx{position:absolute;left:var(--x,50%);top:var(--y,20%);font:700 14px var(--mono);color:var(--hl);opacity:0;animation:fxr var(--d,1.5s) ease-out forwards}
+.fx.z{font-size:17px}
+@keyframes fxr{0%{opacity:0;transform:translate(0,6px) scale(.5)}18%{opacity:1}100%{opacity:0;transform:translate(var(--dx,0px),-46px) scale(1.15)}}
+@media (max-width:640px){#milli{width:78px;right:8px;bottom:calc(78px + env(safe-area-inset-bottom,0px))}.main{padding-bottom:70px}.mb{font-size:11.5px;max-width:min(230px,70vw)}#milli.intro .mb{font-size:15px}}
+@media (prefers-reduced-motion:reduce){#milli *{animation:none!important}#milli .mw{transition-duration:.01s}}
 </style>
 </head>
 <body>
@@ -99,6 +203,41 @@ svg.lgsvg{display:block;width:min(100%,387px);height:auto;margin:8px 0;max-width
 </div>
 <div id="off" class="off" hidden><div>Session closed.<br><button id="reopen" type="button">Reopen terminal</button></div></div>
 <div class="foot">© 2026 Aryan Shekhawat | All Rights Reserved</div>
+
+<div id="mveil"><span>click anywhere to skip</span></div>
+<div id="milli" class="intro nt" data-s="intro" tabindex="0" role="button" aria-label="Milli, the portfolio assistant. Press to boop her.">
+  <div class="mb" id="mb"></div>
+  <div class="mw">
+    <svg id="ms" viewBox="0 0 120 140" aria-hidden="true">
+      <defs>
+        <linearGradient id="mgb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--b1)"/><stop offset="1" style="stop-color:var(--b2)"/></linearGradient>
+        <linearGradient id="mgl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--b1)"/><stop offset="1" style="stop-color:var(--hl)"/></linearGradient>
+      </defs>
+      <ellipse class="msh" cx="60" cy="130" rx="30" ry="4.5"/>
+      <g class="mfl">
+        <path class="msp" d="M106 40l1.6 4.4 4.4 1.6-4.4 1.6-1.6 4.4-1.6-4.4-4.4-1.6 4.4-1.6z"/>
+        <path class="msp" style="animation-delay:-1.2s" d="M13 58l1.2 3.3 3.3 1.2-3.3 1.2-1.2 3.3-1.2-3.3-3.3-1.2 3.3-1.2z"/>
+        <g class="mbody">
+          <ellipse class="ft" cx="44" cy="118" rx="9" ry="5.5"/><ellipse class="ft" cx="76" cy="118" rx="9" ry="5.5"/>
+          <ellipse class="arm al" cx="17" cy="90" rx="6.5" ry="5"/><ellipse class="arm ar" cx="103" cy="90" rx="6.5" ry="5"/>
+          <g class="antg"><path class="stem" d="M60 46V33"/><path class="lf ll" d="M60 34C51 34 45 29 44 21C53 21 59 26 60 34Z"/><path class="lf lr" d="M60 34C69 34 75 29 76 21C67 21 61 26 60 34Z"/><circle class="mah" cx="60" cy="30" r="14" fill="transparent"/></g>
+          <rect class="bd" x="16" y="44" width="88" height="74" rx="35"/>
+          <ellipse class="shine" cx="38" cy="56" rx="9" ry="4.5" transform="rotate(-28 38 56)"/>
+          <g class="eyes" id="mey">
+            <g class="eo"><ellipse cx="44" cy="80" rx="6.2" ry="8.4"/><circle class="gl" cx="46.3" cy="76.6" r="2.6"/><circle class="gl" cx="42.4" cy="84" r="1.2"/><ellipse cx="76" cy="80" rx="6.2" ry="8.4"/><circle class="gl" cx="78.3" cy="76.6" r="2.6"/><circle class="gl" cx="74.4" cy="84" r="1.2"/></g>
+            <path class="ec" d="M38 82Q44 73 50 82"/><path class="ec" d="M70 82Q76 73 82 82"/>
+            <path class="es" d="M38 78Q44 85 50 78"/><path class="es" d="M70 78Q76 85 82 78"/>
+          </g>
+          <path class="mth m1" d="M55.5 91Q60 96 64.5 91"/>
+          <g class="m2"><path d="M55 90Q60 91.5 65 90Q64.5 98.5 60 98.5Q55.5 98.5 55 90Z"/><ellipse class="tg" cx="60" cy="96.3" rx="2.8" ry="1.7"/></g>
+          <ellipse class="m3" cx="60" cy="93" rx="3" ry="3.6"/>
+          <ellipse class="bsh" cx="30" cy="92" rx="8.5" ry="5.6"/><ellipse class="bsh" cx="90" cy="92" rx="8.5" ry="5.6"/>
+        </g>
+      </g>
+    </svg>
+    <div class="mfx" id="mfx"></div>
+  </div>
+</div>
 
 <script>
 const $=s=>document.querySelector(s),out=$('#out'),cmd=$('#cmd'),main=$('#main');
@@ -160,7 +299,7 @@ const CMDS={
  help(){return ['Available commands:','',
   `  ${C('about')}          who I am`,`  ${C('education')}      degree and grades`,`  ${C('experience')}     DRDO and AI/ML internship`,`  ${C('projects')}       things I've built  ${D('(try: projects 1)')}`,
   `  ${C('research')}       papers and ongoing work`,`  ${C('skills')}         languages, frameworks, tools`,`  ${C('achievements')}   hackathons and leadership`,`  ${C('certifications')} courses and programs`,
-  `  ${C('contact')}        get in touch`,`  ${C('neofetch')}       quick summary`,`  ${C('resume')}         open my resume (PDF)`,`  ${C('tour')}           guided tour`,`  ${C('open')} ${D('&lt;project&gt;')}  open a project's live demo`,`  ${C('clear')}          clear the screen`,'',D('tip: ↑ ↓ history · tab autocomplete · every highlighted word is clickable')]},
+  `  ${C('contact')}        get in touch`,`  ${C('neofetch')}       quick summary`,`  ${C('resume')}         open my resume (PDF)`,`  ${C('tour')}           guided tour`,`  ${C('milli')}          meet my little assistant`,`  ${C('intro')}          let Milli introduce herself again`,`  ${C('open')} ${D('&lt;project&gt;')}  open a project's live demo`,`  ${C('clear')}          clear the screen`,'',D('tip: ↑ ↓ history · tab autocomplete · every highlighted word is clickable')]},
  about(){const W=t=>'<span class="wr">'+esc(t)+'</span>',Bl=t=>'<span class="wr bl">• '+esc(t)+'</span>';
   return [D('$ cat about.md'),'',
   W(`I didn’t fall into AI through leaderboards or bigger-is-better benchmarks. I fell into it realizing the hard part was never getting something to work once — it was getting it to still work when no one was watching, when the input was weird, when the easy path quietly broke.`),'',
@@ -221,6 +360,8 @@ const CMDS={
   let u='';try{u=resumeURL();window.open(u,'_blank')}catch(e){}
   return [D('$ open Aryan_Shekhawat_Resume.pdf'),`Opening in a new tab. If it didn't open: [<a href="${u}" target="_blank" rel="noopener">open</a>] [<a href="${u}" download="Aryan_Shekhawat_Resume.pdf">download</a>]`,...nx]},
  tour(){TOUR.on=true;TOUR.i=-1;return ['',H('Guided tour')+' '+D('(5 stops)'),'I will walk you through who I am, what I have built, where I have worked and how to reach me.',D('Press Enter for the next stop, or type q to quit.')]},
+ milli(a){return Milli.ctl((a||'').toLowerCase())},
+ intro(){return Milli.intro(1)},
  open(a){if(!a)return ['Usage: '+H('open &lt;project&gt;')+'  e.g. '+C('open codeatlas'),'Projects: '+PROJ.map(x=>C('open '+x.id,x.id)).join('  ')];
   if(/^resume$/i.test(a))return CMDS.resume();
   const q=a.toLowerCase(),i=/^\d+$/.test(q)?+q-1:PROJ.findIndex(x=>x.id===q||x.alias===q),p=PROJ[i];
@@ -231,7 +372,7 @@ const CMDS={
  clear(){out.innerHTML='';return[]}
 };
 const ALIAS={ls:'projects',dir:'help','?':'help',cls:'clear',history:'help',cert:'certifications',certificates:'certifications'};
-const NAMES=['about','education','experience','projects','research','skills','achievements','certifications','contact','neofetch','help','clear','whoami','resume','tour','open','cat','date','pwd','echo','sudo'];
+const NAMES=['about','education','experience','projects','research','skills','achievements','certifications','contact','neofetch','help','clear','whoami','resume','tour','milli','intro','open','cat','date','pwd','echo','sudo'];
 
 /* ---------- engine ---------- */
 function add(h){const d=document.createElement('div');d.className='ln';d.innerHTML=h;out.appendChild(d);main.scrollTop=main.scrollHeight}
@@ -239,17 +380,19 @@ async function emit(lines,fast){busy=true;for(const l of lines){add(l);if(!reduc
 async function run(raw){
   const t=raw.trim(),adv=TOUR.on&&(!t||/^(n|next)$/i.test(t))&&TOUR.i+1<TOUR.steps.length;add(`<span class="w">C:\\Users\\Visitor&gt;</span> ${esc(adv?TOUR.steps[TOUR.i+1]:raw)}`);
   if(TOUR.on&&(!t||/^(n|next|q|quit)$/i.test(t))){
-    if(/^q/i.test(t)){TOUR.on=false;return emit(['','Tour ended. Type '+C('help')+' to explore on your own.'])}
+    if(/^q/i.test(t)){TOUR.on=false;Milli.ev('tour',-1);return emit(['','Tour ended. Type '+C('help')+' to explore on your own.'])}
     TOUR.i++;
-    if(TOUR.i>=TOUR.steps.length){TOUR.on=false;return emit(['','<span class="ok">That is the tour.</span> Type '+C('help')+' to explore on your own, or '+C('resume')+' for my resume.'])}
+    if(TOUR.i>=TOUR.steps.length){TOUR.on=false;Milli.ev('tour',5);return emit(['','<span class="ok">That is the tour.</span> Type '+C('help')+' to explore on your own, or '+C('resume')+' for my resume.'])}
+    Milli.ev('tour',TOUR.i);
     let r=CMDS[TOUR.steps[TOUR.i]]();if(String(r[r.length-1]).includes('next:'))r=r.slice(0,-2);
     return emit([...r,'',D(`stop ${TOUR.i+1} of ${TOUR.steps.length} · Enter for next, q to quit`)])}
   if(!t)return;
   hist.push(t);hi=hist.length;
   let [n,...r]=t.split(/\s+/);n=n.toLowerCase();const a=r.join(' ');n=ALIAS[n]||n;
   const f=CMDS[n];
-  if(!f)return emit([`<span class="err">'${esc(n)}' is not recognized as a command.</span>`,`Type ${C('help')} to see what's available.`]);
+  if(!f){Milli.ev('unk');return emit([`<span class="err">'${esc(n)}' is not recognized as a command.</span>`,`Type ${C('help')} to see what's available.`])}
   if(n!=='clear')try{history.replaceState(null,'','#'+encodeURIComponent(t))}catch(e){}
+  Milli.ev('cmd',n,a);
   const res=await f(a);await emit(res);
 }
 async function banner(force){
@@ -283,15 +426,172 @@ const TG=$('#tg'),SUN='<svg width="16" height="16" viewBox="0 0 24 24" fill="non
 function paint(){const l=document.documentElement.dataset.theme==='light';TG.innerHTML=l?MOON:SUN;TG.setAttribute('aria-label',l?'Switch to dark mode':'Switch to light mode')}
 const WIN=$('.win'),DOCK=$('#dock'),OFF=$('#off');
 const DESK=$('#desk');
-$('#min').onclick=()=>{WIN.classList.add('gone');DOCK.hidden=false;DESK.hidden=false;DOCK.focus()};
+$('#min').onclick=()=>{WIN.classList.add('gone');DOCK.hidden=false;DESK.hidden=false;DOCK.focus();Milli.ev('min')};
 const restore=()=>{WIN.classList.remove('gone');DOCK.hidden=true;DESK.hidden=true;cmd.focus()};
-DOCK.onclick=restore;
+DOCK.onclick=()=>{restore();Milli.ev('restore')};
 DESK.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{restore();if(!busy)run(b.dataset.c)});
 $('#dres').onclick=()=>{try{const w=window.open(resumeURL(),'_blank');if(!w)saveResume()}catch(e){saveResume()}};
-$('#cls').onclick=()=>{WIN.classList.add('gone');OFF.hidden=false;$('#reopen').focus()};
-$('#reopen').onclick=()=>{OFF.hidden=true;WIN.classList.remove('gone');cmd.value='';try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}banner(true)};
-TG.onclick=()=>{const d=document.documentElement;d.dataset.theme=d.dataset.theme==='light'?'dark':'light';try{localStorage.setItem('t',d.dataset.theme)}catch(e){}paint()};
+$('#cls').onclick=()=>{WIN.classList.add('gone');OFF.hidden=false;$('#reopen').focus();Milli.ev('close')};
+$('#reopen').onclick=()=>{OFF.hidden=true;WIN.classList.remove('gone');cmd.value='';try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}banner(true);Milli.ev('reopen')};
+TG.onclick=()=>{const d=document.documentElement;d.dataset.theme=d.dataset.theme==='light'?'dark':'light';try{localStorage.setItem('t',d.dataset.theme)}catch(e){}paint();Milli.ev('theme',d.dataset.theme)};
 try{const st=localStorage.getItem('t');if(st)document.documentElement.dataset.theme=st}catch(e){}
+
+/* ---------- Milli: no LLM. Every line is pre-written; a small state machine decides when to say it ---------- */
+const Milli=(()=>{
+const R=$('#milli'),B=$('#mb'),FX=$('#mfx'),EY=$('#mey'),VE=$('#mveil'),rm=reduce;
+const LS=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}};
+const ORDER=['about','projects','experience','research','skills','education','achievements','certifications','contact','resume'];
+let st='idle',muted=LS('mm')==='1',gone=LS('mh')==='1',seen=!!LS('mv'),introOn=false,boops=[],total=0,lk=0,last=Date.now(),cAt=last+20000,mAt=0,nn=0,stalk=0,hiddenAt=0,q=[],tI=[],tH=[],vis=new Set(),ty,tB,tSt,tZ,tL,raf=0,px=0,py=0;
+const bag={};
+const pick=(a,k)=>{if(typeof a==='string')return a;let b=bag[k];if(!b||!b.length)b=bag[k]=a.map((_,i)=>i).sort(()=>Math.random()-.5);return a[b.pop()]};
+const Ls={
+ intro:[['Hi hi... I’m Milli.',900,2700],['I’m Aryan’s little helper. It’s so nice to meet you!',3800,3400],['Secret: I’m not an AI. Every word I say was written ahead of time.',7500,3800],['Okay... I’ll sit in my corner now. Boop me if you need anything!',11600,3500]],
+ introB:[['Hi hi, it’s me again. Milli!',900,2600],['I’ll be in my corner if you need me.',3700,3000]],
+ boop:['Hehe!','Eep!','Boop! Hihi.','Squish squish!','Hee hee, that tickles!','Again, again!','Yay, boop!','Ooh, a boop!'],
+ ms:{5:'Hee hee, you really like booping me!',10:'Ten boops! You’re my favorite booper.',25:'Twenty-five! You win the boop prize!',50:'Fifty boops. We’re best buddies now!'},
+ tick:['Hehehe, not the leaf! It tickles!','Hee hee, my leaf is so ticklish!','Eeee! Careful, that’s my sprout!'],
+ giggle:['Hee hee hee, stop stop! I’m all wiggly!','Hihihi, too many boops! My cheeks are warm!'],
+ calm:['Phew... okay. I’m all done giggling. Maybe.'],
+ wake:['I wasn’t sleeping! I was... buffering.','Eep! I was only resting my eyes. Really!','Napping? Me? Never. I was running an important background task.'],
+ drowsy:['(*yawn* ...i’m not sleepy... really)','(just resting my eyes... only for a second)','(my eyes are only blinking slowly... very slowly)'],
+ perk:['Oh! I’m awake! I was only resting my eyes.','Huh? I’m up, I’m up!'],
+ excuse:['(i’m not sleeping... just resting my eyes)','(not asleep... just buffering)','(shh... i’m charging, not napping)','(i’m awake... mostly)'],
+ hint:['(boop me if you need me... i might wake up)','(a tiny boop would wake me up)'],
+ mutter:['(...not asleep... just thinking...)','(...five more minutes... then i’ll help, promise)','(...mm... i’m listening... i think)','(...zzz... i mean... hello...)'],
+ stalk:['(mm... i saw that command... i’m not asleep)','(...projects... very important... zzz)','(i’m on a break... a very short break)'],
+ unk:['Hmm? I don’t know that one. Try help?','Oops, a typo? Happens to everyone.','Command not found. I looked everywhere!'],
+ hire:['Yay!! Great choice!!','Aryan will be so happy!!'],
+ dark:['Lights out. Cozy!','Dark mode! My glow looks best here.'],
+ light:['Whoa, bright! I’m squinting... okay, nice.'],
+ tour:['Stop 1: who Aryan is.','Stop 2: things he’s built.','Stop 3: where he’s worked.','Stop 4: research! Nerdy but cool.','Last stop: say hello to him!'],
+ back:['Oh, you’re back! I kept your seat warm.','Welcome back! I missed you.'],
+ chat:['Tab autocompletes commands. Magic!','Press the up arrow to bring back old commands.','*hums quietly*','Aletheia checks every citation. Trust issues, but healthy ones.','Want to hire Aryan? Try sudo hire aryan.','Every highlighted word is clickable!','I’m just here, being round.','Stretch break! Shoulders down, friend.','Sip some water!','The sun and moon button bottom-left changes the theme!'],
+ nudge:{about:'You haven’t read about Aryan yet. Want me to open it?',projects:'You haven’t seen the projects yet. They’re really cool!',experience:'Want to see where Aryan has worked? You haven’t looked yet.',research:'You haven’t seen the research yet. There’s quantum stuff!',skills:'You haven’t checked the skills yet. Want to see them?',education:'Curious about his studies? You haven’t looked at education yet.',achievements:'There are hackathon wins you haven’t seen yet!',certifications:'You haven’t seen the certificates yet. There are a lot!',contact:'You haven’t seen how to reach Aryan yet. Want to say hi?',resume:'Want to grab the resume before you go?'},
+ cmd:{about:['Ooh, the origin story! This is my favorite part.'],education:['Eight point eight CGPA! Wow, so smart.'],experience:['DRDO and radars! That is so cool.'],projects:['Six projects! Try projects 1 for details.'],research:['Quantum flood models. So much brain power!'],skills:['So many skills! My bubble can’t fit them all.'],achievements:['Ooh, shiny things!'],certifications:['That’s a lot of certificates. Aryan worked hard!'],contact:['Say hi to Aryan! He usually replies within two days.'],neofetch:['That’s Aryan in ASCII. I’m way cuter though.'],help:['Here are all my commands! Click any highlighted word.','Need a hand? Everything highlighted is clickable.'],whoami:['You’re a visitor. A very nice one!'],resume:['Resume time! Good luck, Aryan is great.'],tour:['Tour time! I’ll tag along.'],clear:['Squeaky clean!'],copy:['Email copied! Send something nice.'],open:['Opening a tab! I’ll stay here and wait.'],date:['Time flies when you’re having fun!'],pwd:['You’re in aryan-portfolio. Cozy!'],echo:['Echo, echo, echo!'],cat:['Ooh, reading files like a pro!'],sudo:['Hey! Visitors don’t get sudo... unless you’re hiring.'],def:['Ooh, nice one!']},
+ proj:{resumeforge:'ResumeForge scores your resume in 30 seconds!',aletheia:'Aletheia checks every citation. Trust issues, but healthy ones.',codeatlas:'CodeAtlas! Repos become maps. I love maps.',saluscare:'SalusCare: AI for words, plain code for judgment. Smart!',embedfallback:'embedfallback: when one provider gives up, another steps in.',radar:'Radar placement at DRDO: 22 percent more coverage!'}
+};
+function look(x,y){EY.style.setProperty('--lx',x+'px');EY.style.setProperty('--ly',y+'px')}
+function cls(c,ms){R.classList.remove(c);void R.offsetWidth;R.classList.add(c);setTimeout(()=>R.classList.remove(c),ms)}
+function fx(ch,o={}){if(rm)return;const e=document.createElement('span'),d=o.d||1.5;e.className='fx '+(o.c||'');e.textContent=ch;e.style.cssText=`--x:${o.x??20+Math.random()*60}%;--y:${o.y??8+Math.random()*22}%;--dx:${o.dx??Math.random()*36-18}px;--d:${d}s`;FX.appendChild(e);setTimeout(()=>e.remove(),d*1000+100)}
+const sparkle=n=>{for(let i=0;i<n;i++)setTimeout(()=>fx('✦'),i*150)};
+function zz(on){clearInterval(tZ);if(on){const z=()=>fx('z',{x:68,y:12,dx:18,d:2.8,c:'z'});z();tZ=setInterval(z,1900)}}
+function hush(){clearTimeout(tB);clearInterval(ty);B.classList.remove('on','act');R.classList.remove('talk')}
+const tryRun=c=>{const f=()=>busy?setTimeout(f,150):run(c);f()};
+const act=f=>typeof f==='function'?f():tryRun(f);
+const HC=()=>[['help','help'],['intro',()=>intro(1)]];
+function say(t,ms,keep,o){o=o||{};if(muted||gone||!t)return;if(!keep){q.forEach(clearTimeout);q=[]}clearTimeout(tB);clearInterval(ty);
+ const tx=document.createElement('span'),a=document.createElement('span'),g=document.createElement('span'),ch=document.createElement('div'),c=[...t],cs=o.chips||[];
+ g.style.visibility='hidden';tx.append(a,g);ch.className='ch';
+ cs.forEach(([l,f])=>{const b=document.createElement('button');b.type='button';b.textContent=l;b.onclick=e=>{e.stopPropagation();hush();act(f)};ch.appendChild(b)});
+ B.replaceChildren(tx,ch);B.classList.toggle('q',!!o.q);B.classList.toggle('act',cs.length>0);B.classList.add('on');
+ let i=0;const put=()=>{a.textContent=c.slice(0,i).join('');g.textContent=c.slice(i).join('');if(i>=c.length){clearInterval(ty);R.classList.remove('talk');ch.classList.add('on')}};
+ if(rm){i=c.length;put()}else{R.classList.add('talk');ty=setInterval(()=>{i++;put()},22)}
+ tB=setTimeout(hush,ms||(cs.length?9000:2400+c.length*55))}
+
+/* state machine: which states may follow which, how long timed states last, what happens when they end */
+const T={intro:'idle',giggle:'idle',startled:'idle happy giggle tickle',asleep:'startled'};
+const DUR={happy:1900,giggle:3600,curious:2300,cheer:3200,tickle:1700,startled:1100,drowsy:14000};
+const END={giggle:()=>say(pick(Ls.calm,'calm'))};
+function go(s,f){const t=T[st];if(!f&&t&&s!==st&&!t.split(' ').includes(s))return 0;
+ st=s;R.dataset.s=s;clearTimeout(tSt);tH.forEach(clearTimeout);tH=[];zz(s==='asleep');
+ if(s==='asleep'){look(0,0);mAt=Date.now()+30000;say('Zzz...',2200,0,{q:1});
+  tH.push(setTimeout(()=>say(pick(Ls.excuse,'exc'),4200,0,{q:1}),3000),setTimeout(()=>say(pick(Ls.hint,'hint'),4200,0,{q:1}),8200))}
+ if(DUR[s])tSt=setTimeout(()=>{const e=END[s];go(s==='drowsy'?'asleep':'idle');if(e&&st==='idle')e()},DUR[s]);
+ return 1}
+function poke(){last=Date.now();cAt=last+18000+Math.random()*5000;if(st==='drowsy'&&!introOn){go('idle');say(pick(Ls.perk,'perk'))}}
+function wake(){go('startled');cls('hop',650);say(pick(Ls.wake,'wake'));sparkle(2);setTimeout(()=>{if(st==='idle'&&!introOn)nudge()},3600)}
+function boop(tk){if(introOn)return skip();last=Date.now();cAt=last+22000;
+ if(st==='asleep')return wake();
+ const n=Date.now();boops=boops.filter(t=>n-t<6000);boops.push(n);total++;cls('bp',520);
+ if(st==='giggle'){sparkle(1);return}
+ if(tk){go('tickle');sparkle(2);return say(pick(Ls.tick,'tick'))}
+ if(boops.length>=7){boops=[];go('giggle');sparkle(4);return say(pick(Ls.giggle,'giggle'),3200)}
+ go('happy');sparkle(1+(Math.random()*2|0));
+ if(total%4===0)return say('Hee hee! Do you need any help?',0,0,{chips:HC()});
+ const m=Ls.ms[total];say(m||pick(Ls.boop,'boop'),m?3400:0)}
+
+/* suggests commands the visitor hasn't opened yet */
+function nudge(){const p=ORDER.filter(x=>!vis.has(x));let t,ch=null;
+ if(p.length){const k=p[nn%p.length],o=p.length>1?p[(nn+1)%p.length]:null;t=Ls.nudge[k];ch=[[k,k]];if(o&&o!==k)ch.push([o,o]);ch.push(['help','help'])}
+ else if(nn%2===0){t='You’ve seen everything! Want to say hi to Aryan?';ch=[['contact','contact'],['resume','resume']]}
+ else t=pick(Ls.chat,'chat');
+ nn++;go('curious');say(t,0,0,{chips:ch||undefined})}
+function ask(){go('curious');say('Need any help? I can show you around.',0,0,{chips:HC()})}
+
+/* introduction: big in the middle over a blurred glass veil, then she shrinks and walks to her corner */
+function place(){const r=R.getBoundingClientRect(),W=innerWidth,Hh=innerHeight,sc=Math.min(250,W*.58)/r.width,cx=W/2,cy=Math.max(Hh*.4,r.height*sc/2+20);
+ R.style.setProperty('--tx',cx-(r.left+r.width/2)+'px');R.style.setProperty('--ty',cy-(r.top+r.height/2)+'px');R.style.setProperty('--sc',sc);R.style.setProperty('--bt',cy+r.height*sc/2+8+'px')}
+function intro(rep){if(introOn)return ['Milli is already introducing herself.'];
+ if(gone){gone=false;LS('mh','0');R.hidden=false}
+ tI.forEach(clearTimeout);tI=[];hush();introOn=true;R.classList.add('on');place();
+ if(rep){R.classList.remove('nt');void R.offsetWidth;R.classList.add('intro')}
+ VE.classList.add('on');go('intro',1);look(-2.6,2.4);LS('mv','1');
+ const S=(rep||!seen)?Ls.intro:Ls.introB,e=S[S.length-1];
+ S.forEach(([t,d,m],i)=>tI.push(setTimeout(()=>{say(t,m,1);if(i===1)look(0,0);if(i===2)sparkle(2)},d)));
+ tI.push(setTimeout(finish,e[1]+e[2]+500));
+ return ['',D('Milli is walking to the middle of the screen...')]}
+function finish(){if(!introOn)return;introOn=false;tI.forEach(clearTimeout);tI=[];hush();look(0,0);VE.classList.remove('on');
+ tI.push(setTimeout(()=>{R.classList.remove('nt');void R.offsetWidth;R.classList.remove('intro');go('happy',1);last=Date.now();cAt=last+25000},260));
+ tI.push(setTimeout(ask,2000))}
+const skip=()=>finish();
+
+/* events coming from the terminal / page */
+function ev(k,a,b){
+ if(k==='cmd'){const s=a==='cat'?(b||'').replace(/\.(md|txt)$/,''):a==='open'?(/^resume$/i.test(b||'')?'resume':'projects'):a;if(ORDER.includes(s))vis.add(s);cAt=Date.now()+22000}
+ if(gone||introOn)return;
+ if(st==='asleep'){if(k==='cmd'&&a!=='milli'&&a!=='intro'&&Date.now()-stalk>20000){stalk=Date.now();say(pick(Ls.stalk,'stalk'),0,0,{q:1})}return}
+ switch(k){
+  case 'cmd':{if(a==='milli'||a==='intro')return;
+   if(a==='sudo'&&/hire/i.test(b||'')){go('cheer');sparkle(5);return say(pick(Ls.hire,'hire'),3800)}
+   let t;if(a==='projects'||a==='open'){const s=(b||'').toLowerCase(),p=PROJ[/^\d+$/.test(s)?+s-1:PROJ.findIndex(x=>x.id===s||x.alias===s)];if(p)t=Ls.proj[p.id]}
+   t=t||pick(Ls.cmd[a]||Ls.cmd.def,'c'+a);if(st!=='giggle')go('curious');say(t);break}
+  case 'unk':go('curious');say(pick(Ls.unk,'unk'));break;
+  case 'tour':go('curious');say(a<0?'Aw, leaving the tour? No worries!':a>4?'That was fun! Thanks for walking with me.':Ls.tour[a],3600);break;
+  case 'theme':if(a==='light'){go('startled');say(pick(Ls.light,'light'))}else{go('curious');say(pick(Ls.dark,'dark'))}break;
+  case 'min':say('I’ll keep the desktop company.');break;
+  case 'restore':go('happy');say('Back to the terminal!');break;
+  case 'close':say('Aww, session closed? I’ll wait right here.');break;
+  case 'reopen':go('cheer');sparkle(3);say('Yay, you’re back!');break}}
+
+function ctl(a){const o=[D('$ milli '+esc(a||'--about')),''];
+ if(a==='sleep'){if(!introOn)go('asleep');return [...o,'Milli curls up for a nap.']}
+ if(a==='wake'){if(st==='asleep')wake();else say('I’m already awake!');return [...o,'Milli stretches.']}
+ if(a==='mute'||a==='unmute'){muted=a==='mute';LS('mm',muted?'1':'0');if(muted)hush();else say('I’m chatty again!');return [...o,muted?'Milli will stay quiet. She’ll still wiggle.':'Milli is chatty again.']}
+ if(a==='hide'||a==='show'){gone=a==='hide';LS('mh',gone?'1':'0');R.hidden=gone;if(gone)hush();else{R.classList.add('on');cls('hop',650);say('Hi again!')}return [...o,gone?'Milli went for a walk. Type '+C('milli show')+' to bring her back.':'Milli is back!']}
+ return [...o,H('Milli')+' '+D('· tiny desk assistant'),'  No LLM inside. Every line is pre-written,','  and a small state machine decides when to say it.','',
+  '  '+D('boop')+'     click or tap her. Tickle her leaf too.','  '+D('nap')+'      leave her alone for a minute and she dozes off.','  '+D('wake')+'     boop her to wake her up.','',
+  'options  '+['sleep','wake','mute','unmute','hide','show'].map(x=>C('milli '+x,x)).join('  '),...next(C('intro'),C('about'))]}
+
+/* wiring */
+R.addEventListener('click',e=>boop(!!e.target.closest('.mah')));
+R.addEventListener('mousedown',e=>e.preventDefault());
+R.addEventListener('keydown',e=>{if(e.target===R&&(e.key==='Enter'||e.key===' ')){e.preventDefault();boop(0)}});
+VE.addEventListener('click',skip);
+B.addEventListener('click',e=>{if(e.target.closest('button')||!B.classList.contains('act'))return;const b=B.querySelector('.ch button');b&&b.click()});
+B.addEventListener('mouseenter',()=>{if(B.classList.contains('act'))clearTimeout(tB)});
+B.addEventListener('mouseleave',()=>{if(B.classList.contains('act')&&B.classList.contains('on')){clearTimeout(tB);tB=setTimeout(hush,2500)}});
+['keydown','pointerdown','wheel','touchstart'].forEach(n=>addEventListener(n,poke,{passive:true}));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&introOn)skip()});
+addEventListener('resize',()=>{if(introOn)place()});
+addEventListener('pointermove',e=>{poke();if(rm||st==='asleep'||introOn||Date.now()<lk||raf)return;px=e.clientX;py=e.clientY;raf=requestAnimationFrame(()=>{raf=0;const r=R.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height*.6;look(Math.max(-3.4,Math.min(3.4,(px-cx)/80)),Math.max(-2.4,Math.min(2.6,(py-cy)/80)))})},{passive:true});
+cmd.addEventListener('input',()=>{if(rm||st==='asleep'||introOn)return;lk=Date.now()+1500;look(-3.2,1.6);clearTimeout(tL);tL=setTimeout(()=>look(0,0),1500)});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)hiddenAt=Date.now();else if(!gone&&!introOn&&st==='idle'&&Date.now()-hiddenAt>25000){last=Date.now();cAt=last+18000;go('happy');say(pick(Ls.back,'back'))}});
+setInterval(()=>{if(gone||introOn||document.hidden)return;const n=Date.now();
+ if(st==='asleep'){if(n>mAt){mAt=n+26000+Math.random()*14000;say(pick(Ls.mutter,'mut'),0,0,{q:1})}return}
+ if(st!=='idle')return;
+ if(n-last>55000){go('drowsy');say(pick(Ls.drowsy,'drowsy'),0,0,{q:1})}
+ else if(n>cAt){cAt=n+25000;nudge()}},1000);
+function blink(){if(st!=='asleep'&&!/^(happy|giggle|tickle|cheer)$/.test(st)){cls('bk',130);if(Math.random()<.2)setTimeout(()=>cls('bk',130),240)}setTimeout(blink,2200+Math.random()*3800)}
+function fid(){if(st==='idle'&&!gone&&!rm){const r=Math.random();
+ if(r<.3){look(-3,-1.2);setTimeout(()=>look(3,-1.2),650);setTimeout(()=>look(0,0),1350)}
+ else if(r<.5)cls('hop',650);else if(r<.7)cls('wg',900);
+ else if(r<.85){fx('♪',{x:72,y:10,dx:16,d:2.2});setTimeout(()=>fx('♪',{x:60,y:14,dx:-14,d:2.2}),420)}else fx('✦')}
+ setTimeout(fid,4500+Math.random()*5500)}
+if(gone){R.hidden=true;R.classList.remove('intro','nt');st='idle';R.dataset.s='idle'}
+else{st='intro';place();setTimeout(()=>intro(),700)}
+blink();fid();
+return {ev,ctl,intro}})();
+
 paint();
 banner();cmd.focus({preventScroll:true});
 </script>
