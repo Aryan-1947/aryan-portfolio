@@ -29,7 +29,7 @@ Shortcuts: `Tab` autocompletes, `↑ ↓` recalls history, `Ctrl+L` clears, `Esc
 
 Milli is a small assistant who lives in the corner of the page.
 
-- She introduces herself when you arrive, over a blurred glass background, then walks to her corner. Click anywhere or press `Esc` to skip.
+- She introduces herself when you arrive, over a blurred glass background, then walks to her corner. Click anywhere to jump to her next line, or press `Esc` to skip.
 - Click or tap her to boop her. Tickle her leaf for a different reaction.
 - She offers help with clickable `help` and `intro` buttons.
 - If you stop exploring, she suggests commands you haven't opened yet.

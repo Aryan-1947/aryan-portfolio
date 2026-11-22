@@ -82,7 +82,7 @@ svg.lgsvg{display:block;width:min(100%,387px);height:auto;margin:8px 0;max-width
 #milli:not(.on){opacity:0}
 #milli[hidden]{display:none}
 #milli:focus-visible{outline-offset:6px;border-radius:20px}
-#milli .mw{position:relative;transition:transform 1.3s cubic-bezier(.65,0,.25,1)}
+#milli .mw{position:relative;transition:transform 1s cubic-bezier(.65,0,.25,1)}
 #milli.intro .mw{transform:translate(var(--tx,0px),var(--ty,0px)) scale(var(--sc,1))}
 #milli.nt .mw{transition:none}
 #mveil{position:fixed;inset:0;z-index:5;display:flex;align-items:flex-end;justify-content:center;padding-bottom:calc(26px + env(safe-area-inset-bottom,0px));background:radial-gradient(460px 460px at 50% 40%,color-mix(in srgb,var(--hl) 22%,transparent),transparent 70%),color-mix(in srgb,var(--page) 38%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);opacity:0;visibility:hidden;transition:opacity .6s,visibility 0s .6s;cursor:pointer}
@@ -204,7 +204,7 @@ svg.lgsvg{display:block;width:min(100%,387px);height:auto;margin:8px 0;max-width
 <div id="off" class="off" hidden><div>Session closed.<br><button id="reopen" type="button">Reopen terminal</button></div></div>
 <div class="foot">© 2026 Aryan Shekhawat | All Rights Reserved</div>
 
-<div id="mveil"><span>click anywhere to skip</span></div>
+<div id="mveil"><span>click anywhere for the next line · Esc to skip</span></div>
 <div id="milli" class="intro nt" data-s="intro" tabindex="0" role="button" aria-label="Milli, the portfolio assistant. Press to boop her.">
   <div class="mb" id="mb"></div>
   <div class="mw">
@@ -243,6 +243,7 @@ svg.lgsvg{display:block;width:min(100%,387px);height:auto;margin:8px 0;max-width
 const $=s=>document.querySelector(s),out=$('#out'),cmd=$('#cmd'),main=$('#main');
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const TOUCH=matchMedia('(pointer: coarse)').matches;
 const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 const C=(c,t)=>`<span class="c" data-c="${c}" tabindex="0" role="button">${t||c}</span>`;
 const L=(u,t)=>`<a href="${u}" target="_blank" rel="noopener">${t}</a>`;
@@ -376,7 +377,7 @@ const NAMES=['about','education','experience','projects','research','skills','ac
 
 /* ---------- engine ---------- */
 function add(h){const d=document.createElement('div');d.className='ln';d.innerHTML=h;out.appendChild(d);main.scrollTop=main.scrollHeight}
-async function emit(lines,fast){busy=true;for(const l of lines){add(l);if(!reduce)await sleep(fast?8:22)}busy=false;cmd.focus({preventScroll:true})}
+async function emit(lines,fast){busy=true;for(const l of lines){add(l);if(!reduce)await sleep(fast?8:22)}busy=false;if(!TOUCH)cmd.focus({preventScroll:true})}
 async function run(raw){
   const t=raw.trim(),adv=TOUR.on&&(!t||/^(n|next)$/i.test(t))&&TOUR.i+1<TOUR.steps.length;add(`<span class="w">C:\\Users\\Visitor&gt;</span> ${esc(adv?TOUR.steps[TOUR.i+1]:raw)}`);
   if(TOUR.on&&(!t||/^(n|next|q|quit)$/i.test(t))){
@@ -414,7 +415,7 @@ cmd.addEventListener('keydown',e=>{
 function click(e){const t=e.target.closest('.c');if(!t||busy)return;e.preventDefault();run(t.dataset.c)}
 out.addEventListener('click',click);
 out.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')click(e)});
-main.addEventListener('click',e=>{if(!e.target.closest('a,.c')&&!getSelection().toString())cmd.focus()});
+main.addEventListener('click',e=>{if(!e.target.closest('a,.c')&&!getSelection().toString()&&(!TOUCH||e.target.closest('.pr')))cmd.focus()});
 const MO=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const ord=d=>d+(d>3&&d<21?'th':(['th','st','nd','rd'][d%10]||'th'));
 function tick(){const n=new Date(),ds=MO[n.getMonth()]+' '+ord(n.getDate())+', '+n.getFullYear();$('#date').textContent=ds;$('#time').textContent=n.toLocaleTimeString('en-GB');$('#dtime').textContent=n.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});$('#ddate').textContent=n.toLocaleDateString('en-US',{weekday:'long'})+', '+ds}
@@ -427,7 +428,7 @@ function paint(){const l=document.documentElement.dataset.theme==='light';TG.inn
 const WIN=$('.win'),DOCK=$('#dock'),OFF=$('#off');
 const DESK=$('#desk');
 $('#min').onclick=()=>{WIN.classList.add('gone');DOCK.hidden=false;DESK.hidden=false;DOCK.focus();Milli.ev('min')};
-const restore=()=>{WIN.classList.remove('gone');DOCK.hidden=true;DESK.hidden=true;cmd.focus()};
+const restore=()=>{WIN.classList.remove('gone');DOCK.hidden=true;DESK.hidden=true;if(!TOUCH)cmd.focus()};
 DOCK.onclick=()=>{restore();Milli.ev('restore')};
 DESK.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{restore();if(!busy)run(b.dataset.c)});
 $('#dres').onclick=()=>{try{const w=window.open(resumeURL(),'_blank');if(!w)saveResume()}catch(e){saveResume()}};
@@ -441,12 +442,12 @@ const Milli=(()=>{
 const R=$('#milli'),B=$('#mb'),FX=$('#mfx'),EY=$('#mey'),VE=$('#mveil'),rm=reduce;
 const LS=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}};
 const ORDER=['about','projects','experience','research','skills','education','achievements','certifications','contact','resume'];
-let st='idle',muted=LS('mm')==='1',gone=LS('mh')==='1',seen=!!LS('mv'),introOn=false,boops=[],total=0,lk=0,last=Date.now(),cAt=last+20000,mAt=0,nn=0,stalk=0,hiddenAt=0,q=[],tI=[],tH=[],vis=new Set(),ty,tB,tSt,tZ,tL,raf=0,px=0,py=0;
+let st='idle',muted=LS('mm')==='1',gone=LS('mh')==='1',seen=!!LS('mv'),introOn=false,boops=[],total=0,lk=0,last=Date.now(),cAt=last+20000,mAt=0,nn=0,stalk=0,hiddenAt=0,q=[],tI=[],tIt,iS=[],iN=0,tH=[],vis=new Set(),ty,tB,tSt,tZ,tL,raf=0,px=0,py=0;
 const bag={};
 const pick=(a,k)=>{if(typeof a==='string')return a;let b=bag[k];if(!b||!b.length)b=bag[k]=a.map((_,i)=>i).sort(()=>Math.random()-.5);return a[b.pop()]};
 const Ls={
- intro:[['Hi hi... I’m Milli.',900,2700],['I’m Aryan’s little helper. It’s so nice to meet you!',3800,3400],['Secret: I’m not an AI. Every word I say was written ahead of time.',7500,3800],['Okay... I’ll sit in my corner now. Boop me if you need anything!',11600,3500]],
- introB:[['Hi hi, it’s me again. Milli!',900,2600],['I’ll be in my corner if you need me.',3700,3000]],
+ intro:[['Hi hi... I’m Milli.',500,1700],['I’m Aryan’s little helper. Nice to meet you!',2300,2300],['Secret: I’m not an AI. Every word I say was pre-written.',4700,2700],['Okay... I’ll sit in my corner now. Boop me if you need anything!',7500,2700]],
+ introB:[['Hi hi, it’s me again. Milli!',500,1700],['I’ll be in my corner if you need me.',2300,2200]],
  boop:['Hehe!','Eep!','Boop! Hihi.','Squish squish!','Hee hee, that tickles!','Again, again!','Yay, boop!','Ooh, a boop!'],
  ms:{5:'Hee hee, you really like booping me!',10:'Ten boops! You’re my favorite booper.',25:'Twenty-five! You win the boop prize!',50:'Fifty boops. We’re best buddies now!'},
  tick:['Hehehe, not the leaf! It tickles!','Hee hee, my leaf is so ticklish!','Eeee! Careful, that’s my sprout!'],
@@ -500,7 +501,7 @@ function go(s,f){const t=T[st];if(!f&&t&&s!==st&&!t.split(' ').includes(s))retur
  return 1}
 function poke(){last=Date.now();cAt=last+18000+Math.random()*5000;if(st==='drowsy'&&!introOn){go('idle');say(pick(Ls.perk,'perk'))}}
 function wake(){go('startled');cls('hop',650);say(pick(Ls.wake,'wake'));sparkle(2);setTimeout(()=>{if(st==='idle'&&!introOn)nudge()},3600)}
-function boop(tk){if(introOn)return skip();last=Date.now();cAt=last+22000;
+function boop(tk){if(introOn)return nextLine();last=Date.now();cAt=last+22000;
  if(st==='asleep')return wake();
  const n=Date.now();boops=boops.filter(t=>n-t<6000);boops.push(n);total++;cls('bp',520);
  if(st==='giggle'){sparkle(1);return}
@@ -526,13 +527,14 @@ function intro(rep){if(introOn)return ['Milli is already introducing herself.'];
  tI.forEach(clearTimeout);tI=[];hush();introOn=true;R.classList.add('on');place();
  if(rep){R.classList.remove('nt');void R.offsetWidth;R.classList.add('intro')}
  VE.classList.add('on');go('intro',1);look(-2.6,2.4);LS('mv','1');
- const S=(rep||!seen)?Ls.intro:Ls.introB,e=S[S.length-1];
- S.forEach(([t,d,m],i)=>tI.push(setTimeout(()=>{say(t,m,1);if(i===1)look(0,0);if(i===2)sparkle(2)},d)));
- tI.push(setTimeout(finish,e[1]+e[2]+500));
+ const S=(rep||!seen)?Ls.intro:Ls.introB;
+ iS=S;iN=0;clearTimeout(tIt);tIt=setTimeout(step,S[0][1]);
  return ['',D('Milli is walking to the middle of the screen...')]}
-function finish(){if(!introOn)return;introOn=false;tI.forEach(clearTimeout);tI=[];hush();look(0,0);VE.classList.remove('on');
+function step(){clearTimeout(tIt);if(iN>=iS.length)return finish();const [t,,m]=iS[iN];say(t,m,1);if(iN===1)look(0,0);if(iN===2)sparkle(2);iN++;tIt=setTimeout(step,m+100)}
+const nextLine=()=>{if(introOn)step()};
+function finish(){if(!introOn)return;introOn=false;clearTimeout(tIt);tI.forEach(clearTimeout);tI=[];hush();look(0,0);VE.classList.remove('on');
  tI.push(setTimeout(()=>{R.classList.remove('nt');void R.offsetWidth;R.classList.remove('intro');go('happy',1);last=Date.now();cAt=last+25000},260));
- tI.push(setTimeout(ask,2000))}
+ tI.push(setTimeout(ask,1600))}
 const skip=()=>finish();
 
 /* events coming from the terminal / page */
@@ -563,10 +565,10 @@ function ctl(a){const o=[D('$ milli '+esc(a||'--about')),''];
   'options  '+['sleep','wake','mute','unmute','hide','show'].map(x=>C('milli '+x,x)).join('  '),...next(C('intro'),C('about'))]}
 
 /* wiring */
-R.addEventListener('click',e=>boop(!!e.target.closest('.mah')));
+R.addEventListener('click',e=>{if(TOUCH)cmd.blur();boop(!!e.target.closest('.mah'))});
 R.addEventListener('mousedown',e=>e.preventDefault());
 R.addEventListener('keydown',e=>{if(e.target===R&&(e.key==='Enter'||e.key===' ')){e.preventDefault();boop(0)}});
-VE.addEventListener('click',skip);
+VE.addEventListener('click',nextLine);
 B.addEventListener('click',e=>{if(e.target.closest('button')||!B.classList.contains('act'))return;const b=B.querySelector('.ch button');b&&b.click()});
 B.addEventListener('mouseenter',()=>{if(B.classList.contains('act'))clearTimeout(tB)});
 B.addEventListener('mouseleave',()=>{if(B.classList.contains('act')&&B.classList.contains('on')){clearTimeout(tB);tB=setTimeout(hush,2500)}});
@@ -588,12 +590,12 @@ function fid(){if(st==='idle'&&!gone&&!rm){const r=Math.random();
  else if(r<.85){fx('♪',{x:72,y:10,dx:16,d:2.2});setTimeout(()=>fx('♪',{x:60,y:14,dx:-14,d:2.2}),420)}else fx('✦')}
  setTimeout(fid,4500+Math.random()*5500)}
 if(gone){R.hidden=true;R.classList.remove('intro','nt');st='idle';R.dataset.s='idle'}
-else{st='intro';place();setTimeout(()=>intro(),700)}
+else{st='intro';place();setTimeout(()=>intro(),400)}
 blink();fid();
 return {ev,ctl,intro}})();
 
 paint();
-banner();cmd.focus({preventScroll:true});
+banner();if(!TOUCH)cmd.focus({preventScroll:true});
 </script>
 </body>
 </html>
